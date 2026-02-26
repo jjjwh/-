@@ -1,74 +1,73 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import HeroSlider from './components/HeroSlider.vue';
-import ScrollSection from './components/ScrollSection.vue';
+import ScrollyTelling from './components/ScrollyTelling.vue';
 import content from '@/content.json';
+import gsap from 'gsap';
+
+// State to control visual changes based on scroll step
+const currentVisualIndex = ref(0);
+
+const handleStepEnter = (index: number) => {
+    currentVisualIndex.value = index;
+    // Animate visual transition here using GSAP
+    gsap.fromTo('.visual-element', 
+        { opacity: 0, scale: 0.9 }, 
+        { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
+    );
+};
+
+const scrollySteps = [
+    { title: "二十四节气", text: "立春、雨水、惊蛰... 每一个节气都指导着农事活动。它是农耕的时间刻度，也是中华民族的智慧结晶。" },
+    { title: "多样的节日", text: "从哈尼开秧门到藏历新年，每一个节日都承载着深厚的文化底蕴。不同地域的节日同质化与差异化并存。" },
+    { title: "核心发现", text: "数据显示，45% 为县市非遗，30% 为省级非遗，25% 为国家非遗。数字化保护迫在眉睫。" }
+];
+
+const visuals = [
+    "/assets/images/page1_img0.jpeg", // Solar Terms
+    "/assets/images/page2_img0.jpeg", // Festivals
+    "/assets/images/page0_img0.jpeg"  // Stats (placeholder)
+];
 </script>
 
 <template>
-  <main>
+  <main class="bg-primary text-secondary selection:bg-accent selection:text-white">
     <HeroSlider />
     
-    <ScrollSection title="关于毕设" class="bg-primary">
-      <template #content>
-        <p>
-          本毕设项目旨在通过数字化手段重新诠释传统农耕年节文化。
-          利用现代Web技术，将古老的二十四节气与各民族的独特节日以可视化的形式呈现。
-        </p>
-        <p class="mt-4">
-          通过深入调研与资料搜集，我们整理了大量珍贵的图文素材，
-          并尝试用沉浸式的叙事手法，让观众身临其境地感受中华文化的博大精深。
-        </p>
-      </template>
-      <template #visual>
-        <div class="relative w-full aspect-video bg-gray-800 rounded-lg overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-             <!-- Placeholder for extracted image -->
-             <div class="w-full h-full bg-secondary/20 flex items-center justify-center">
-                <span class="text-white">Image Placeholder</span>
-             </div>
-        </div>
-      </template>
-    </ScrollSection>
+    <section class="relative">
+        <ScrollyTelling :steps="scrollySteps" @stepEnter="handleStepEnter">
+            <template #visual>
+                <div class="w-full h-full flex items-center justify-center p-8">
+                    <!-- Dynamic Visual Container -->
+                    <div class="visual-element relative w-full max-w-3xl aspect-[4/3] rounded-sm overflow-hidden border-4 border-secondary/10 shadow-2xl">
+                        <!-- Image Layer -->
+                        <img 
+                            :src="visuals[currentVisualIndex] || visuals[0]" 
+                            alt="Visual Context" 
+                            class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                        />
+                        <!-- Overlay Tint -->
+                        <div class="absolute inset-0 bg-accent/10 mix-blend-multiply"></div>
+                    </div>
+                </div>
+            </template>
+        </ScrollyTelling>
+    </section>
 
-    <ScrollSection title="核心发现" class="bg-[#0f2242]">
-       <template #content>
-        <ul class="list-disc pl-5 space-y-2">
-            <li>节日分布与农耕周期的强相关性</li>
-            <li>不同地域节日的同质化与差异化并存</li>
-            <li>数字化保护的紧迫性与可行性</li>
-        </ul>
-      </template>
-      <template #visual>
-         <div class="grid grid-cols-2 gap-4">
-            <div class="bg-secondary/20 p-4 rounded h-32 flex items-center justify-center text-2xl font-bold">
-                45% 县市非遗
-            </div>
-            <div class="bg-secondary/20 p-4 rounded h-32 flex items-center justify-center text-2xl font-bold">
-                30% 省级非遗
-            </div>
-             <div class="bg-secondary/20 p-4 rounded h-32 flex items-center justify-center text-2xl font-bold col-span-2">
-                25% 国家非遗
-            </div>
-         </div>
-      </template>
-    </ScrollSection>
-
-     <ScrollSection title="未来展望" class="bg-primary">
-      <template #content>
-        <p>
-           我们希望不仅仅是一个静态的展示网站，更是一个开放的平台。
-           未来将加入更多互动功能，如用户投稿、节日提醒、AR体验等。
-        </p>
-      </template>
-      <template #visual>
-        <div class="relative w-full h-64 flex items-center justify-center border-2 border-dashed border-secondary/50 rounded-lg">
-            <span class="text-secondary text-xl">Interactive Map (Coming Soon)</span>
+    <!-- Bar Chart Section (Placeholder for D3 Implementation) -->
+    <section class="h-screen flex flex-col items-center justify-center bg-primary border-t border-secondary/10">
+        <h2 class="chapter-title">非遗数据分布</h2>
+        <div id="bar-chart-container" class="w-full max-w-4xl h-96 bg-secondary/5 rounded border border-secondary/20 flex items-center justify-center">
+            <p class="text-secondary/50 font-mono">D3 Bar Chart Component Loading...</p>
         </div>
-      </template>
-    </ScrollSection>
+    </section>
 
   </main>
 </template>
 
 <style>
-@import './assets/main.css';
+/* Global resets handled by Tailwind base, additional specific overrides here */
+html {
+    scroll-behavior: smooth;
+}
 </style>
