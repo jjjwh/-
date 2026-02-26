@@ -2,11 +2,19 @@
 import { ref } from 'vue';
 import HeroSlider from './components/HeroSlider.vue';
 import ScrollyTelling from './components/ScrollyTelling.vue';
+import BarChart from './components/charts/BarChart.vue';
 import content from '@/content.json';
 import gsap from 'gsap';
 
 // State to control visual changes based on scroll step
 const currentVisualIndex = ref(0);
+
+// Chart Data
+const chartData = [
+    { category: '县市非遗', value: 45 },
+    { category: '省级非遗', value: 30 },
+    { category: '国家非遗', value: 25 }
+];
 
 const handleStepEnter = (index: number) => {
     currentVisualIndex.value = index;

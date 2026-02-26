@@ -2,8 +2,14 @@
 import { onMounted, ref, watch } from 'vue';
 import * as d3 from 'd3';
 
+// Define the data interface
+interface ChartData {
+  category: string;
+  value: number;
+}
+
 const props = defineProps<{
-  data: { category: string; value: number }[];
+  data: ChartData[];
 }>();
 
 const chartRef = ref<HTMLElement | null>(null);
@@ -56,21 +62,21 @@ const drawChart = () => {
     .data(props.data)
     .join('rect')
     .attr('x', x(0))
-    .attr('y', d => y(d.category) || 0)
+    .attr('y', (d: ChartData) => y(d.category) || 0)
     .attr('width', 0) // Start at 0 for animation
     .attr('height', y.bandwidth())
     .attr('fill', 'var(--color-accent)')
     .transition()
     .duration(1000)
-    .attr('width', d => x(d.value));
+    .attr('width', (d: ChartData) => x(d.value));
 
   // Labels
   svg.selectAll('myLabels')
     .data(props.data)
     .join('text')
-    .attr('x', d => x(d.value) + 5)
-    .attr('y', d => (y(d.category) || 0) + y.bandwidth() / 2 + 5)
-    .text(d => `${d.value}%`)
+    .attr('x', (d: ChartData) => x(d.value) + 5)
+    .attr('y', (d: ChartData) => (y(d.category) || 0) + y.bandwidth() / 2 + 5)
+    .text((d: ChartData) => `${d.value}%`)
     .style('fill', 'var(--color-secondary)')
     .style('font-family', 'var(--font-mono)')
     .style('opacity', 0)
