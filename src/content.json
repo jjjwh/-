@@ -1,0 +1,26 @@
+[
+  {
+    "id": "intro",
+    "title": "农耕年节",
+    "subtitle": "传统文化遗产的沉浸式探索",
+    "description": "年节是每个民族最重要的节日，春节是中国最具影响力的年节，影响覆盖全民族；同时不少少数民族也有着独特且隆重的年节。",
+    "image": "/assets/images/page0_img0.jpeg",
+    "theme": "dark"
+  },
+  {
+    "id": "solar-terms",
+    "title": "二十四节气",
+    "subtitle": "农耕的时间刻度",
+    "description": "立春、雨水、惊蛰... 每一个节气都指导着农事活动。",
+    "image": "/assets/images/page1_img0.jpeg",
+    "theme": "dark"
+  },
+  {
+    "id": "festivals",
+    "title": "多样的节日",
+    "subtitle": "中华大地的文化瑰宝",
+    "description": "从哈尼开秧门到藏历新年，每一个节日都承载着深厚的文化底蕴。",
+    "image": "/assets/images/page2_img0.jpeg",
+    "theme": "dark"
+  }
+]

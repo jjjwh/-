@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #0b1a33;
+  --color-secondary: #ff6c36;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: white;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Swiper Customization */
+.swiper-pagination-bullet-active {
+  background-color: var(--color-secondary) !important;
+}
