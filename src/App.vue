@@ -54,11 +54,12 @@ const visuals = [
         </ScrollyTelling>
     </section>
 
-    <!-- Bar Chart Section (Placeholder for D3 Implementation) -->
-    <section class="h-screen flex flex-col items-center justify-center bg-primary border-t border-secondary/10">
+    <!-- Bar Chart Section (D3 Implementation) -->
+    <section class="h-screen flex flex-col items-center justify-center bg-primary border-t border-secondary/10 px-4">
         <h2 class="chapter-title">非遗数据分布</h2>
-        <div id="bar-chart-container" class="w-full max-w-4xl h-96 bg-secondary/5 rounded border border-secondary/20 flex items-center justify-center">
-            <p class="text-secondary/50 font-mono">D3 Bar Chart Component Loading...</p>
+        <div id="bar-chart-container" class="w-full max-w-4xl bg-secondary/5 rounded border border-secondary/20 p-8">
+            <BarChart :data="chartData" />
+            <p class="text-sm text-secondary/50 mt-4 text-center font-mono">数据来源：文化和旅游部非物质文化遗产司</p>
         </div>
     </section>
 
